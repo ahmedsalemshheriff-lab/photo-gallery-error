@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fff8e9">
+  <title>Gallery Wall | Funfair Fiesta</title>
+  <meta name="description" content="See the meme poses Funfair Fiesta guests have recreated and add your own photo to the Gallery Wall.">
+  <meta property="og:site_name" content="Funfair Fiesta">
+  <meta property="og:title" content="Gallery Wall | Funfair Fiesta">
+  <meta property="og:description" content="See guest recreations and add your own photo to the Funfair Fiesta Gallery Wall.">
+  <link rel="icon" href="/img/fiesta.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/styles.css">
+  <script type="module" src="/wall.mjs"></script>
+</head>
+<body class="wall-page">
+  <div class="awning" aria-hidden="true"></div>
+  <header class="site-header shell">
+    <a class="brand" href="/" aria-label="Funfair Fiesta home"><span class="brand-mark"><svg><use href="/icons.svg#ticket"/></svg></span><span><strong>Funfair Fiesta</strong><small>Ticket to Fiesta Counter</small></span></a>
+    <nav class="site-nav" aria-label="Main navigation">
+      <a href="/">Pose Roll</a>
+      <a aria-current='page' class='nav-current' href='/wall'><svg><use href="/icons.svg#gallery"/></svg> Gallery Wall</a>
+    </nav>
+  </header>
+  <main class="wall-main shell">
+    <div class="wall-hero">
+      <div><span class="eyebrow hero-tag"><svg><use href="/icons.svg#spark"/></svg> Guest recreations</span><h1>Gallery <em>Wall<span>.</span></em></h1><p>See how other guests recreated the poses, then add your own take to the wall.</p></div>
+      <a class="btn btn-primary" href="/#upload"><svg><use href="/icons.svg#plus"/></svg> Upload a photo</a>
+      <svg class="wall-spark" aria-hidden="true"><use href="/icons.svg#spark"/></svg>
+    </div>
+    <aside class="privacy-rule" aria-labelledby="privacy-rule-title">
+      <span class="privacy-rule-icon"><svg aria-hidden="true"><use href="/icons.svg#no-shot"/></svg></span>
+      <div><strong id="privacy-rule-title">No screenshots of the Gallery Wall.</strong><p>Screenshots, screen recordings and photos of this wall or any guest photo are not allowed in any manner. <a href="/privacy">Read the privacy policy</a></p></div>
+    </aside>
+    <div class="wall-toolbar">
+      <div class="pills" role="group" aria-label="Filter guest photos">
+        <button type="button" data-mode="all" aria-pressed="true">All photos</button>
+        <button type="button" data-mode="solo" aria-pressed="false">Solo</button>
+        <button type="button" data-mode="duo" aria-pressed="false">Duo</button>
+        <button type="button" data-mode="group" aria-pressed="false">Group <small>3+</small></button>
+      </div>
+      <a class="text-button back-link" href="/"><svg><use href="/icons.svg#back"/></svg> Back to Pose Roll</a>
+    </div>
+    <p class="sr-only" id="wall-status" role="status"></p>
+    <p class="form-message wall-feedback" id="wall-feedback" role="status"></p>
+    <div id="wall-skeleton" class="wall-grid" aria-hidden="true" hidden><div class="post-skeleton"></div><div class="post-skeleton"></div><div class="post-skeleton"></div></div>
+    <div id="wall-grid" class="wall-grid" aria-label="Guest photos"></div>
+    <div id="wall-state" class="wall-state" hidden>
+      <span class="state-icon"><svg><use href="/icons.svg#gallery"/></svg></span>
+      <h2 id="wall-state-title"></h2><p id="wall-state-text"></p>
+      <a class="btn btn-primary" id="wall-empty-upload" href="/#upload">Add a photo <svg><use href="/icons.svg#arrow"/></svg></a>
+      <button type="button" id="wall-retry" class="btn btn-outline" hidden>Try again</button>
+    </div>
+    <div class="more-row wall-more"><button id="more-photos" class="btn btn-outline" type="button" hidden>Load more photos <svg><use href="/icons.svg#plus"/></svg></button></div>
+    <noscript><p>Turn on JavaScript to browse the guest photos.</p></noscript>
+  </main>
+  <footer class="site-footer shell"><span class="footer-brand"><span>Funfair Fiesta <span aria-hidden="true">✦</span> Ticket to Fiesta Counter</span><span class="footer-credit">Created by Almas Fathima</span></span><span class="footer-links"><a href="/privacy">Privacy policy</a><a href="/qr">QR code</a><a href="/">Back to Pose Roll <span aria-hidden="true">↗</span></a></span></footer>
+  <dialog id="photo-dialog" class="dialog photo-dialog" aria-labelledby="photo-title">
+    <div class="dialog-head"><span class="eyebrow section-tag"><svg><use href="/icons.svg#gallery"/></svg> Guest recreation</span><button type="button" class="icon-button" id="close-photo" aria-label="Close photo"><svg><use href="/icons.svg#close"/></svg></button></div>
+    <div class="gallery-preview" id="gallery-preview"><img id="full-photo" alt="" draggable="false"><span aria-hidden="true">Funfair Fiesta · No screenshots</span></div>
+    <p id="photo-error" hidden>This photo couldn’t be loaded. Try opening it again.</p>
+    <h2 id="photo-title"></h2><p id="photo-caption"></p>
+    <div class="photo-actions"><button type="button" class="like-button" id="photo-like"></button><span class="photo-rule"><svg aria-hidden="true"><use href="/icons.svg#no-shot"/></svg> No screenshots · <a href="/privacy">Privacy policy</a></span></div>
+    <p class="form-message" id="photo-feedback" role="status"></p>
+    <details class="organizer-tools" id="organizer-tools">
+      <summary>Organizer tools</summary>
+      <form id="organizer-form">
+        <p>Only organizers can delete photos. Enter the organizer passkey to take this photo off the Gallery Wall for everyone.</p>
+        <label for="organizer-code">Organizer passkey</label>
+        <div class="organizer-controls">
+          <input id="organizer-code" type="password" autocomplete="off" autocapitalize="none" maxlength="128" required>
+          <button type="submit" class="btn btn-danger" id="delete-photo">Delete photo</button>
+        </div>
+        <p class="form-message" id="organizer-status" role="status"></p>
+      </form>
+    </details>
+  </dialog>
+  <div class="capture-shield" id="capture-shield" aria-hidden="true">
+    <div role="alertdialog" aria-labelledby="capture-shield-title" aria-describedby="capture-shield-text"><svg><use href="/icons.svg#no-shot"/></svg><strong id="capture-shield-title">Caught ya! 📸</strong><p id="capture-shield-text">Psst… screenshots of the Gallery Wall aren’t allowed. Please respect our guests’ privacy and keep their photos here.</p><button type="button" class="btn btn-primary capture-shield-okay" id="capture-shield-okay">I promise, no screenshots</button></div>
+  </div>
+  <div class="print-block" aria-hidden="true"><strong>Funfair Fiesta</strong><p>Printing, screenshots and any other copies of the Gallery Wall aren’t allowed under the Funfair Fiesta privacy policy.</p></div>
+</body>
+</html>

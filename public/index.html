@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fff8e9">
+  <title>Roll My Pose | Funfair Fiesta</title>
+  <meta name="description" content="Roll a meme, recreate the pose, and share your photo on the Funfair Fiesta gallery wall.">
+  <meta property="og:site_name" content="Funfair Fiesta">
+  <meta property="og:title" content="Roll My Pose | Funfair Fiesta">
+  <meta property="og:description" content="Roll a meme, recreate the pose, and share your photo on the Funfair Fiesta gallery wall.">
+  <link rel="icon" href="/img/fiesta.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/styles.css">
+  <script type="module" src="/booth.mjs"></script>
+</head>
+<body>
+  <div class="awning" aria-hidden="true"></div>
+  <header class="site-header shell">
+    <a class="brand" href="/" aria-label="Funfair Fiesta home">
+      <span class="brand-mark"><svg><use href="/icons.svg#ticket"/></svg></span>
+      <span><strong>Funfair Fiesta</strong><small>Ticket to Fiesta Counter</small></span>
+    </a>
+    <nav class="site-nav" aria-label="Main navigation">
+      <a class="nav-current" href="/" aria-current="page">Pose Roll</a>
+      <a href='/wall'><svg><use href="/icons.svg#gallery"/></svg> Gallery Wall</a>
+    </nav>
+  </header>
+  <main>
+    <section class="hero shell" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <span class="eyebrow hero-tag"><svg><use href="/icons.svg#spark"/></svg> The meme edition</span>
+        <h1 id="hero-title">Roll My<br><em>Pose<span>.</span></em></h1>
+        <p>Pick your crew size, roll a meme, and recreate the pose. Then share your take on the Gallery Wall.</p>
+        <div class="roll-controls">
+          <span id="team-label" class="eyebrow field-title">Who’s posing?</span>
+          <div class="pills" data-mode-group role="group" aria-labelledby="team-label">
+            <button type="button" data-mode="all" aria-pressed="true">Surprise me</button>
+            <button type="button" data-mode="solo" aria-pressed="false">Solo</button>
+            <button type="button" data-mode="duo" aria-pressed="false">Duo</button>
+            <button type="button" data-mode="group" aria-pressed="false">Group <small>3+</small></button>
+          </div>
+          <button type="button" class="btn btn-primary roll-button" id="roll"><svg><use href="/icons.svg#dice"/></svg> Roll my pose <svg class="trailing"><use href="/icons.svg#arrow"/></svg></button>
+          <button type="button" class="text-button already" data-upload="quick">Already snapped a photo? <strong>Upload it <span aria-hidden="true">↗</span></strong></button>
+        </div>
+      </div>
+      <div class="hero-art" aria-label="Pose reference">
+        <svg class="hero-spark spark-one" aria-hidden="true"><use href="/icons.svg#spark"/></svg>
+        <svg class="hero-spark spark-two" aria-hidden="true"><use href="/icons.svg#spark"/></svg>
+        <figure class="pose-print" id="pose-card">
+          <span class="print-tape" aria-hidden="true"></span>
+          <div class="print-photo"><img id="pose-image" src="/img/three-idiots.jpg" width="736" height="552" alt="Three people standing close together and pulling exaggerated faces"></div>
+          <figcaption>
+            <div class="print-kicker"><span id="pose-label">From the pose deck</span><span class="mode-stamp" id="pose-mode">Group · 3+</span></div>
+            <h2 id="pose-name" tabindex="-1">The 3 Idiots</h2>
+            <p id="pose-tip">Squeeze in shoulder to shoulder. One person thinks hard; the others make their biggest surprised faces.</p>
+            <button class="text-button use-pose" type="button" id="pose-upload" data-upload="pose"><svg><use href="/icons.svg#camera"/></svg> Recreate &amp; upload <svg><use href="/icons.svg#arrow"/></svg></button>
+          </figcaption>
+        </figure>
+        <span class="art-index" aria-hidden="true">01 / Ticket to Fiesta Counter</span>
+      </div>
+      <p id="roll-status" class="sr-only" role="status"></p>
+    </section>
+
+    <section class="how shell" aria-label="How it works">
+      <div><span class="step-no step-lilac">01</span><div><strong>Roll a pose</strong><p>Go solo, pair up, or grab your crew.</p></div></div>
+      <div><span class="step-no step-yellow">02</span><div><strong>Recreate it</strong><p>Copy the pose and snap your take.</p></div></div>
+      <div><span class="step-no step-pink">03</span><div><strong>Post to the wall</strong><p>Share it and unlock your Fiesta ticket.</p></div></div>
+    </section>
+
+    <section class="deck shell" aria-labelledby="deck-title">
+      <div class="section-top">
+        <div><span class="eyebrow section-tag"><svg><use href="/icons.svg#spark"/></svg> Pick your favourite</span><h2 id="deck-title">The pose deck<span>.</span></h2></div>
+        <p>Skip the roll and pick one yourself. Each pose comes with a quick tip for getting the shot.</p>
+      </div>
+      <div class="deck-toolbar">
+        <div class="pills" data-mode-group role="group" aria-label="Filter the pose deck">
+          <button type="button" data-mode="all" aria-pressed="true">All poses</button>
+          <button type="button" data-mode="solo" aria-pressed="false">Solo</button>
+          <button type="button" data-mode="duo" aria-pressed="false">Duo</button>
+          <button type="button" data-mode="group" aria-pressed="false">Group <small>3+</small></button>
+        </div>
+        <span class="eyebrow deck-count" id="deck-count" role="status"></span>
+      </div>
+      <div class="deck-grid" id="deck-grid"></div>
+      <div class="more-row"><button id="more-poses" class="btn btn-outline" type="button">Show more poses <svg><use href="/icons.svg#plus"/></svg></button></div>
+    </section>
+
+    <section class="wall-callout shell" aria-labelledby="wall-callout-title">
+      <div class="callout-inner">
+        <span class="callout-icon"><svg><use href="/icons.svg#gallery"/></svg></span>
+        <div><span class="eyebrow">The guest photo wall</span><h2 id="wall-callout-title">See how everyone posed.</h2></div>
+        <a class='btn btn-yellow' href='/wall'>Open Gallery Wall <svg><use href="/icons.svg#arrow"/></svg></a>
+      </div>
+    </section>
+    <noscript><p class="shell">Turn on JavaScript to roll poses, upload photos, and browse the wall.</p></noscript>
+  </main>
+  <footer class="site-footer shell"><span class="footer-brand"><span>Funfair Fiesta <span aria-hidden="true">✦</span> Ticket to Fiesta Counter</span><span class="footer-credit">Created by Almas Fathima</span></span><span class="footer-links"><a href='/privacy'>Privacy policy</a><a href='/qr'>QR code</a><a href='/wall'>Gallery Wall <span aria-hidden="true">↗</span></a></span></footer>
+
+  <dialog id="upload-dialog" class="dialog" aria-labelledby="upload-title">
+    <div class="dialog-head">
+      <span class="eyebrow section-tag"><svg><use href="/icons.svg#camera"/></svg> Snap &amp; share</span>
+      <button type="button" class="icon-button" id="close-upload" aria-label="Close upload"><svg><use href="/icons.svg#close"/></svg></button>
+    </div>
+    <h2 id="upload-title">Post your pose<span>.</span></h2>
+    <p id="upload-prompt">Snap a new photo or pick one you already took.</p>
+    <div id="upload-reference" class="upload-reference" hidden>
+      <img id="upload-reference-image" alt="">
+      <div><strong id="upload-reference-name"></strong><p id="upload-reference-tip"></p></div>
+    </div>
+    <form id="upload-form">
+      <input id="camera-file" type="file" accept="image/*" capture="environment" hidden>
+      <input id="library-file" type="file" accept="image/*" hidden>
+      <div class="snap-option">
+        <a class="btn btn-snap" href="snapchat://"><svg><use href="/icons.svg#snap"/></svg> Open Snapchat <span aria-hidden="true">↗</span></a>
+        <p>Take a Snap, save it to your Camera Roll, then come back and tap <strong>Choose photo</strong>. No Snapchat? Use your phone camera below.</p>
+      </div>
+      <div class="file-actions">
+        <button type="button" class="btn btn-outline" id="pick-camera"><svg><use href="/icons.svg#camera"/></svg> Take photo</button>
+        <button type="button" class="btn btn-outline" id="pick-library"><svg><use href="/icons.svg#gallery"/></svg> Choose photo</button>
+      </div>
+      <div class="upload-preview" id="upload-preview" hidden><img id="photo-preview" alt="Preview of the photo you’re posting"><button type="button" class="icon-button" id="remove-photo" aria-label="Remove selected photo"><svg><use href="/icons.svg#close"/></svg></button></div>
+      <div class="save-actions" id="preview-save" hidden>
+        <a class="btn btn-outline" data-save-photo download="fiesta-pose.jpg"><svg><use href="/icons.svg#download"/></svg> Save my photo</a>
+        <button type="button" class="text-button" data-share-photo hidden>More save options</button>
+        <p class="form-message" role="status"></p>
+      </div>
+      <div class="form-fields">
+        <label id="upload-mode-label">Party size <select name="mode" id="upload-mode"><option value="solo">Solo</option><option value="duo">Duo</option><option value="group">Group (3+)</option></select></label>
+        <label>Name or crew name <span>optional</span><input name="name" type="text" maxlength="40" placeholder="e.g. The Cotton Candy Crew" autocomplete="nickname"></label>
+        <label>Caption <span>optional</span><input name="caption" type="text" maxlength="140" placeholder="Add a line for the wall" autocomplete="off"></label>
+      </div>
+      <p class="form-message" id="upload-status" role="status"></p>
+      <p class="consent">Only post photos everyone pictured is happy to share. The wall is public. Under our <a href="/privacy">privacy policy</a>, no screenshots of the Gallery Wall are allowed in any manner.</p>
+      <button type="submit" id="publish" class="btn btn-primary full" disabled>Post to Gallery Wall <svg><use href="/icons.svg#arrow"/></svg></button>
+    </form>
+  </dialog>
+
+  <dialog id="ticket-dialog" class="dialog ticket-dialog" aria-labelledby="ticket-title">
+    <div class="dialog-head"><span class="eyebrow section-tag"><svg><use href="/icons.svg#check"/></svg> Photo posted</span><button type="button" class="icon-button" id="close-ticket" aria-label="Close ticket"><svg><use href="/icons.svg#close"/></svg></button></div>
+    <h2 id="ticket-title">You’re on the wall<span>!</span></h2>
+    <p>Your recreation is posted. Here’s your Funfair Fiesta ticket.</p>
+    <div class="admission-ticket"><span class="eyebrow">Admit one · Funfair Fiesta</span><strong>Fiesta Ticket</strong><code id="ticket-code"></code></div>
+    <a class='btn btn-primary full' href='/wall' id='view-post'>See your photo on the wall <svg><use href="/icons.svg#arrow"/></svg></a>
+    <div class="save-actions" id="ticket-save" hidden>
+      <a class="btn btn-outline" data-save-photo download="fiesta-pose.jpg"><svg><use href="/icons.svg#download"/></svg> Save my photo</a>
+      <button type="button" class="text-button" data-share-photo hidden>More save options</button>
+      <p class="form-message" role="status"></p>
+    </div>
+  </dialog>
+</body>
+</html>

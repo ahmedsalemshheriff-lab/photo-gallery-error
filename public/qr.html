@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fff8e9">
+  <title>Scan to Play | Funfair Fiesta</title>
+  <meta name="description" content="Scan the QR code to roll a pose and post your photo on the Funfair Fiesta gallery wall.">
+  <link rel="icon" href="/img/fiesta.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+    .qr-page{min-height:calc(100vh - 9px);display:grid;place-items:center;padding:32px 16px}
+    .qr-poster{width:min(100%,440px);text-align:center;background:var(--white);border:1px solid var(--plum);border-radius:16px;padding:30px 28px 26px;box-shadow:6px 8px 0 #43265630}
+    .qr-poster .brand{justify-content:center;margin-bottom:22px}
+    .qr-poster h1{font-size:clamp(34px,8vw,46px)}
+    .qr-poster h1 em{color:var(--purple)}
+    .qr-poster>p{color:var(--muted);margin:10px auto 22px;max-width:320px}
+    .qr-frame{border:2px dashed var(--plum);border-radius:14px;padding:14px;background:#fff;margin:0 auto;width:min(100%,320px)}
+    .qr-frame img{display:block;width:100%;height:auto}
+    .qr-url{display:block;margin-top:14px;font-weight:800;color:var(--plum);word-break:break-all}
+    .qr-actions{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:22px}
+    @media print{
+      .awning,.qr-actions{display:none}
+      body{background:#fff}
+      .qr-page{min-height:auto;padding:0}
+      .qr-poster{box-shadow:none;border-width:2px;width:100%;max-width:520px}
+    }
+  </style>
+</head>
+<body>
+  <div class="awning" aria-hidden="true"></div>
+  <main class="qr-page">
+    <article class="qr-poster">
+      <a class="brand" href="/" aria-label="Funfair Fiesta home">
+        <span class="brand-mark"><svg><use href="/icons.svg#ticket"/></svg></span>
+        <span><strong>Funfair Fiesta</strong><small>Ticket to Fiesta Counter</small></span>
+      </a>
+      <h1>Scan to <em>pose.</em></h1>
+      <p>Roll a meme, recreate the pose and post your photo on the Gallery Wall.</p>
+      <div class="qr-frame">
+        <img src="/img/qr-code.svg" width="410" height="410" alt="QR code linking to photo-gallery-error.netlify.app">
+      </div>
+      <a class="qr-url" href="/">photo-gallery-error.netlify.app</a>
+      <div class="qr-actions">
+        <button type="button" class="btn btn-primary" onclick="window.print()">Print poster</button>
+        <a class="btn btn-outline" href="/img/qr-code.png" download="funfair-fiesta-qr.png">Download PNG</a>
+        <a class="btn btn-outline" href="/img/qr-code.svg" download="funfair-fiesta-qr.svg">Download SVG</a>
+      </div>
+    </article>
+  </main>
+</body>
+</html>
